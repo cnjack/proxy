@@ -21,5 +21,8 @@ class Spider(CrawlSpider):
         schemes = trs.xpath('//td[6]/text()').extract()
         for key in range(0, len(ips)):
             item = ProxyItem()
-            item['proxy'] = str(schemes[key]).strip().lower() + "://" + str(ips[key]).strip() + ":" + str(ports[key]).strip()
+            item['scheme'] = str(schemes[key]).strip().lower()
+            item['host'] = str(ips[key]).strip()
+            item['port'] = str(ports[key]).strip()
+            item['proxy'] =  item['scheme'] + "://" + item['host'] + ":" + item['port']
             yield item
